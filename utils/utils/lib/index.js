@@ -1,19 +1,9 @@
 'use strict';
-<<<<<<< HEAD
-
-=======
 /** is对象 */
->>>>>>> 699c9c8 (cs)
 function isObject(e) {
   return Object.prototype.toString.call(e) === '[object Object]';
 }
 
-<<<<<<< HEAD
-
-
-module.exports = {
-  isObject
-=======
 /** 加载显示 */
 function Spinners(msg='loading..',SpinnerString='|/-\\') {
   const Spinner = require('cli-spinner').Spinner;
@@ -53,6 +43,5 @@ function execAsync(command,args,options){
 }
 module.exports = {
   isObject ,Spinners,sleep,spawn,execAsync
->>>>>>> 699c9c8 (cs)
 };
 

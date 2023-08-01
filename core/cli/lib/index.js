@@ -11,11 +11,7 @@ const pkg = require('../package.json');//导入package信息
 const path = require('path');
 const constant = require('./const')//全局变量
 const colors = require('colors/safe'); //打印颜色
-<<<<<<< HEAD
-const userHome = require('user-home'); //获取用户主目录
-=======
 const userHome = require('os').homedir(); //获取用户主目录
->>>>>>> 699c9c8 (cs)
 const pathExists = require('path-exists').sync; //判断主目录
 const commander = require('commander'); //命令注册
 const exec =require('@zcc-cli-dev/exec')
@@ -69,10 +65,7 @@ function registerCommand() {
   program.parse(process.argv);
 }
 async function prepare(){
-<<<<<<< HEAD
-=======
   //checkNodeVersion();
->>>>>>> 699c9c8 (cs)
   checkPkgVersion();
   checkRoot();
   checkUserHome();
@@ -80,18 +73,6 @@ async function prepare(){
   await checkGlobalUpdate();
 }
 /** node版本判断 */
-<<<<<<< HEAD
-function checkNodeVersion() {
-  //获取当前node版本号
-  const currentVersion = process.version;
-  //对比最低版本号
-  const lowestVersion = constant.LOWEST_NODE_VERSION
-  if (!semver.gte(currentVersion, lowestVersion)) {
-    //版本号没有大于设置版本号报错
-    throw new Error(colors.red(`zcc-cli-dev 需要安装v${lowestVersion}以上的版本的 Node.js`))
-  }
-}
-=======
 // function checkNodeVersion() {
 //   //获取当前node版本号
 //   const currentVersion = process.version;
@@ -102,7 +83,6 @@ function checkNodeVersion() {
 //     throw new Error(colors.red(`zcc-cli-dev 需要安装v${lowestVersion}以上的版本的 Node.js`))
 //   }
 // }
->>>>>>> 699c9c8 (cs)
 
 /** 检查版本 */
 function checkPkgVersion() {

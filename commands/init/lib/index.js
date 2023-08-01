@@ -1,31 +1,21 @@
 'use strict';
 const log = require("@zcc-cli-dev/log");
-<<<<<<< HEAD
-const fs = require('fs');
-const path = require('path');
-const userHome = require('user-home');
-const fse = require('fs-extra');
-=======
 const { Spinners, sleep, execAsync } = require("@zcc-cli-dev/utils");
 const fs = require('fs');
 const path = require('path');
 const { homedir } = require('os');
 const fse = require('fs-extra');
 const ejs = require('ejs');
->>>>>>> 699c9c8 (cs)
 const inquirer = require('inquirer');
 const semver = require('semver');
 const TYPE_PROJECT = 'project';
 const TYPE_COMPONENT = 'component';
 
-<<<<<<< HEAD
-=======
 const TEMPLATE_TYPE_NORMAL = 'normal';//标准模板
 const TEMPLATE_TYPE_CUSTOM = 'custom'; //自定义模板
 
 const WHITE_COMMAND = ['npm', 'cnpm'];
 
->>>>>>> 699c9c8 (cs)
 const getProjectTemplate = require('./getProjectTemplate');
 
 function init(argv) {
@@ -52,24 +42,14 @@ class InitCommand extends Command {
         //2.下载模板
         this.projeactInfo = projeactInfo;
         await this.downloadTempate();
-<<<<<<< HEAD
-      }
-
-
-      //3.安装模板
-=======
         //3.安装模板
         await this.installTemplate();
       }
 
->>>>>>> 699c9c8 (cs)
     } catch (e) {
       log.error(e.message);
     }
   }
-<<<<<<< HEAD
-
-=======
   /**模板安装 */
   async installTemplate() {
     if (this.templateInfo) {
@@ -173,28 +153,18 @@ class InitCommand extends Command {
   async installCustomTemplate() {
 
   }
->>>>>>> 699c9c8 (cs)
   /**模板下载 */
   async downloadTempate() {
     const { projectTemplate } = this.projeactInfo;
     const templateInfo = this.template.find(item => item.npmName === projectTemplate);
-<<<<<<< HEAD
-=======
     const userHome = homedir();
     let spinnerObj = null;
->>>>>>> 699c9c8 (cs)
     const targetPath = path.resolve(userHome, '.zcc-cli-dev', 'template');
     const storeDir = path.resolve(userHome, '.zcc-cli-dev', 'template', 'node_modules');
     const { npmName, version } = templateInfo;
     const templateNpm = new Package({
       targetPath, storeDir, packageName: npmName, packageVersion: version
     })
-<<<<<<< HEAD
-    if (! await templateNpm.exists()) {
-      await templateNpm.install();
-    }else{
-      await templateNpm.update();
-=======
     try {
       if (! await templateNpm.exists()) {
         spinnerObj = new Spinners('下载模板');
@@ -213,7 +183,6 @@ class InitCommand extends Command {
       spinnerObj.stop(true);
       this.templateNpm = templateNpm;
       this.templateInfo = templateInfo;
->>>>>>> 699c9c8 (cs)
     }
   }
 
@@ -222,11 +191,7 @@ class InitCommand extends Command {
     //0.判断项目模板是否存在
     const template = await getProjectTemplate();
     if (!template || template.length === 0) {
-<<<<<<< HEAD
-      throw new Error('无项目模板,请联系检查数据库数据')
-=======
       throw new Error('无项目模板,请联系检查数据库数据');
->>>>>>> 699c9c8 (cs)
     }
     this.template = template;
     //1.判断当前目录是否为空
@@ -262,10 +227,6 @@ class InitCommand extends Command {
       }
     }
     return this.getProjectInfo();
-<<<<<<< HEAD
-
-=======
->>>>>>> 699c9c8 (cs)
   }
   /**命令数据采集 */
   async getProjectInfo() {
@@ -286,18 +247,11 @@ class InitCommand extends Command {
       }
       ]
     })
-<<<<<<< HEAD
-    const project = await inquirer.prompt([{
-      type: 'input',
-      name: 'projectName',
-      message: '请输入项目名称',
-=======
     const title = type === TYPE_PROJECT ? '项目' : '组件'
     const project = await inquirer.prompt([{
       type: 'input',
       name: 'projectName',
       message: `请输入${title}名称`,
->>>>>>> 699c9c8 (cs)
       default: '',
       validate(v) {
         const done = this.async();
@@ -314,9 +268,6 @@ class InitCommand extends Command {
       },
     }, {
       type: 'input',
-<<<<<<< HEAD
-      name: 'projectVersion',
-=======
       name: 'projectChineseName',
       message: `请输入${title}中文名称 ${title==='项目'?'（后台将自动修改站点名称)':''}}`,
       validate(v) {
@@ -333,7 +284,6 @@ class InitCommand extends Command {
     }, {
       type: 'input',
       name: 'version',
->>>>>>> 699c9c8 (cs)
       message: '请输入项目版本号',
       default: '1.0.0',
       validate(v) {
@@ -356,13 +306,6 @@ class InitCommand extends Command {
       type: 'list',
       name: 'projectTemplate',
       message: '请选择模板',
-<<<<<<< HEAD
-      choices: this.createTemplateChoice()
-    }
-    ])
-    projeactInfo = { type, ...project }
-    //4.获取项目的基本信息
-=======
       choices: this.createTemplateChoice(type)
     }
     ])
@@ -372,7 +315,6 @@ class InitCommand extends Command {
       projeactInfo.className = require('kebab-case')(projeactInfo.projectName);
     }
     log.verbose(JSON.stringify(projeactInfo))
->>>>>>> 699c9c8 (cs)
     return projeactInfo
   }
 
@@ -387,15 +329,10 @@ class InitCommand extends Command {
     return !fileList || fileList.length <= 0
   }
   /**模板数据格式化 */
-<<<<<<< HEAD
-  createTemplateChoice() {
-    return this.template.map(item => (
-=======
   createTemplateChoice(type) {
     return this.template.filter(template => {
       return template.tag.includes(type)
     }).map(item => (
->>>>>>> 699c9c8 (cs)
       {
         value: item.npmName,
         name: item.name

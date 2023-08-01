@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 node_modules/
 packages/**/node_modules
 models/**/node_modules
@@ -7,6 +6,3 @@ commands/**/node_modules
 utils/**/node_modules
 packages/**/package-lock.json
 lerna-debug.log
-=======
-node_modules
->>>>>>> 699c9c8 (cs)
