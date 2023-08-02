@@ -13,7 +13,8 @@
   },
   "workspaces": [
     "packages/core",
-    "packages/utils"
+    "packages/utils",
+    "packages/view"
   ],
   "dependencies": {
     "axios": "^1.4.0"
