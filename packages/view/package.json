@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+https://github.com/z1070548197/zcc-cli-dev.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "node ./__tests__/view.test.js"
   },

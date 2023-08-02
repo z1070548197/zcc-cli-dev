@@ -25,6 +25,9 @@
   "bugs": {
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "axios": "^1.4.0"
   },
