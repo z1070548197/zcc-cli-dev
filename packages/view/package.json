@@ -1,6 +1,6 @@
 {
   "name": "@zcc-cli-dev/view",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -23,5 +23,5 @@
   "bugs": {
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
   },
-  "gitHead": "dd95ce932c5a9f584042f1ceefa1f091c00916b3"
+  "gitHead": "e1d63d6ff5b290b09bdb78db2cfa31db22e3fab7"
 }
