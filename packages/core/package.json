@@ -1,6 +1,6 @@
 {
   "name": "@zcc-cli-dev/core",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -9,8 +9,8 @@
   "directories": {
     "lib": "lib"
   },
-  "bin":{
-    "zcc-cli-dev":"bin/index.js"
+  "bin": {
+    "zcc-cli-dev": "bin/index.js"
   },
   "files": [
     "lib"
