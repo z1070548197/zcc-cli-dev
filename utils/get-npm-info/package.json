@@ -1,5 +1,5 @@
 {
-  "name": "get-npm-info",
+  "name": "@zcc-cli-dev/get-npm-info",
   "version": "1.0.7",
   "description": "get npm info",
   "author": "zcc <1070548197@qq.com>",
