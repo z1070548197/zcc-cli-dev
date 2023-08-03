@@ -1,22 +1,21 @@
 {
   "name": "zcc-cli-dev",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "zcc-cli-dev": "core/cli/bin/index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "lerna": "^7.1.4"
   },
-  "workspaces": [
-    "packages/core",
-    "packages/utils",
-    "packages/view"
-  ],
+  "workspaces":["utils/log"],
   "dependencies": {
-    "axios": "^1.4.0"
+    "yargs": "^17.7.2"
   }
 }

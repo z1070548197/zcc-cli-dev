@@ -16,7 +16,7 @@
     "lib"
   ],
   "scripts": {
-    "test": "node ./__tests__/core.test.js"
+    "test": "node bin/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,9 @@
     "access": "public"
   },
   "dependencies": {
-    "axios": "^1.4.0"
+    "@zcc-cli-dev/utils": "file:../../utils/utils",
+    "import-local": "^3.1.0",
+    "npmlog": "^7.0.1"
   },
   "gitHead": "e1d63d6ff5b290b09bdb78db2cfa31db22e3fab7"
 }
