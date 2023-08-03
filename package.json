@@ -14,7 +14,7 @@
   "devDependencies": {
     "lerna": "^7.1.4"
   },
-  "workspaces":["utils/log"],
+  "workspaces":["utils/*","core/*"],
   "dependencies": {
     "yargs": "^17.7.2"
   }
