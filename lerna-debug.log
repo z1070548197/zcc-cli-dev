@@ -1,5 +1,5 @@
-53 error Error: Command failed with exit code 128: git tag v1.0.2 -m v1.0.2
-53 error 致命错误：标签 'v1.0.2' 已存在
+53 error Error: Command failed with exit code 128: git tag v1.0.3 -m v1.0.3
+53 error 致命错误：标签 'v1.0.3' 已存在
 53 error     at makeError (/Users/zc/Desktop/项目/测试/脚手架/node_modules/execa/lib/error.js:59:11)
 53 error     at handlePromise (/Users/zc/Desktop/项目/测试/脚手架/node_modules/execa/index.js:114:26)
 53 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
