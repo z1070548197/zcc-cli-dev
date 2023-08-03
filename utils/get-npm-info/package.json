@@ -20,7 +20,11 @@
   "scripts": {
     "test": "node ./__tests__/get-npm-info.test.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
-  }
+  },
+  "gitHead": "878a2265bac095ca1e32c3c12b6176fb9eda4fb7"
 }
