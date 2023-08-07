@@ -1,6 +1,6 @@
 {
   "name": "@zcc-cli-dev/core",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -29,9 +29,9 @@
     "access": "public"
   },
   "dependencies": {
+    "@zcc-cli-dev/get-npm-info": "file:../../utils/get-npm-info",
     "@zcc-cli-dev/log": "^1.0.9",
     "@zcc-cli-dev/utils": "^1.0.6",
-    "@zcc-cli-dev/get-npm-info":"file:../../utils/get-npm-info",
     "colors": "^1.4.0",
     "dotenv": "^16.3.1",
     "import-local": "^3.1.0",
