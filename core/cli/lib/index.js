@@ -15,7 +15,7 @@ const userHome = require('user-home'); //获取用户主目录
 const pathExists = require('path-exists').sync; //判断主目录
 
 let args, config;
-function core() {
+async function core() {
   try {
     checkPkgVersion();
     checkNodeVersion();
@@ -23,7 +23,7 @@ function core() {
     checkUserHome();
     checkInputArgs();
     checkEnv();
-    checkGlobalUpdate();
+    await checkGlobalUpdate();
   } catch (e) {
     log.error(e.message);
   }
@@ -85,28 +85,33 @@ function checkEnv() {
       path: dotenvPath
     }); //解析出来 放入 process.env里
   }
-  createDefault() 
-  log.verbose('环境变量路径',process.env.CLI_HOME_PATH)
+  createDefault()
+  log.verbose('环境变量路径', process.env.CLI_HOME_PATH)
 }
 /** 创建默认环境变量 */
-function createDefault(){
+function createDefault() {
   const cliConfig = {
-    home:userHome,
+    home: userHome,
   };
-  if(process.env.CLI_HOME){
-    cliConfig['cliHome']=path.join(userHome,process.env.CLI_HOME);
-  }else{
-    cliConfig['cliHome']=path.join(userHome,constant.DEFAULT_CLI_HOME);
+  if (process.env.CLI_HOME) {
+    cliConfig['cliHome'] = path.join(userHome, process.env.CLI_HOME);
+  } else {
+    cliConfig['cliHome'] = path.join(userHome, constant.DEFAULT_CLI_HOME);
   }
   process.env.CLI_HOME_PATH = cliConfig.cliHome;
   return cliConfig;
 }
-
-function checkGlobalUpdate(){
+/** 检查更新 */
+async function checkGlobalUpdate() {
   //获取当前版本号和模块名
   const currentVersion = pkg.version;
   const npmName = pkg.name;
-  //调用npm API，获取所有版本号
-  //提取所有版本号
-  //给出最新版本号
+  //调用npm API最新版本号
+  const { getNpmSemverVersion } = require('@zcc-cli-dev/get-npm-info');
+  const lastversion = await getNpmSemverVersion(currentVersion, npmName);
+  if (lastversion && semver.lt(currentVersion, lastversion)) {
+    log.warn(colors.yellow(`请手动更新${npmName},当前版本:${currentVersion}最新版本:${lastversion}
+      更新命令 npm install -g ${npmName}`
+    ))
+  }
 }
