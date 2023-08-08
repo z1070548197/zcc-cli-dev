@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lerna": "^7.1.4"
+    "lerna": "^7.1.4",
+    "nx-cloud": "^16.2.0"
   },
   "workspaces": [
     "utils/*",
