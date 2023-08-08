@@ -13,24 +13,18 @@ const constant = require('./const')//全局变量
 const colors = require('colors/safe'); //打印颜色
 const userHome = require('user-home'); //获取用户主目录
 const pathExists = require('path-exists').sync; //判断主目录
-const commander = require('commander');
-const init = require('@zcc-cli-dev/init')
-
+const commander = require('commander'); //命令注册
+const init = require('@zcc-cli-dev/init') //导入命令库
+const exec =require('@zcc-cli-dev/exec')
 
 let args, config;
 const program = new commander.Command();
 async function core() {
   try {
-    checkPkgVersion();
-    checkNodeVersion();
-    checkRoot();
-    checkUserHome();
-    // checkInputArgs();
-    checkEnv();
-    await checkGlobalUpdate();
+    await prepare();
     registerCommand();
   } catch (e) {
-    log.error(e.message);
+   console.log(e.message);
   }
 
 }
@@ -40,12 +34,13 @@ function registerCommand() {
     .name(Object.keys(pkg.bin)[0])
     .usage('<command> [options]')
     .version(pkg.version)
-    .option('-d,--debug', '是否开启调试模式', false)
+    .option('-d, --debug', '是否开启调试模式', false)
+    .option('-tp, --targetPath <targetPath>','是否指定本地调试文件','')
 
   program
   .command('init [projectName]')
   .option('-f , --force','是否强制初始化项目')
-  .action(init)
+  .action(exec)
   program.on('option:debug', () => {
     if (program.opts().debug) {
       process.env.LOG_LEVEL = 'verbose';
@@ -54,6 +49,11 @@ function registerCommand() {
     }
     log.level = process.env.LOG_LEVEL;
   })
+  //监听targetPath 指定targetPath
+  program.on('option:targetPath',()=>{
+    process.env.CLI_TARGET_PATH=program.opts().targetPath
+  })
+
   program.on('command:*', (obj) => {
     console.log(colors.red('未知的命令：', obj[0]))
     const availableCommands = program.commands.map(cmd => cmd.name()).join(',')
@@ -64,6 +64,14 @@ function registerCommand() {
   //   program.outputHelp();
   // }
   program.parse(process.argv);
+}
+async function prepare(){
+  checkPkgVersion();
+  checkNodeVersion();
+  checkRoot();
+  checkUserHome();
+  checkEnv();
+  await checkGlobalUpdate();
 }
 /** node版本判断 */
 function checkNodeVersion() {
@@ -77,7 +85,7 @@ function checkNodeVersion() {
   }
 }
 
-/** 2检查版本 */
+/** 检查版本 */
 function checkPkgVersion() {
   log.notice(pkg.version)
 }
@@ -92,22 +100,6 @@ function checkUserHome() {
   if (!userHome || !pathExists(userHome)) {
     throw new Error(colors.red('当前用户主目录不存在！'))
   }
-}
-/** 获取命令字符 */
-function checkInputArgs() {
-  const minimist = require('minimist');//获取命令字符
-  args = minimist(process.argv.slice(2));
-  checkArgs()
-}
-/** 判断是否debug模式切换log */
-function checkArgs() {
-  //log.verbose('213') debug模式 会输出verbose打印
-  if (args.debug) {
-    process.env.LOG_LEVEL = 'verbose';
-  } else {
-    process.env.LOG_LEVEL = 'info';
-  }
-  log.level = process.env.LOG_LEVEL;
 }
 
 /** 配置环境变量 */
@@ -148,4 +140,23 @@ async function checkGlobalUpdate() {
       更新命令 npm install -g ${npmName}`
     ))
   }
+}
+
+
+/** 获取命令字符  弃用（commands替代） */
+function checkInputArgs() {
+  const minimist = require('minimist');//获取命令字符
+  args = minimist(process.argv.slice(2));
+  checkArgs()
+}
+
+/** 判断是否debug模式切换log 弃用（commands替代） */
+function checkArgs() {
+  //log.verbose('213') debug模式 会输出verbose打印
+  if (args.debug) {
+    process.env.LOG_LEVEL = 'verbose';
+  } else {
+    process.env.LOG_LEVEL = 'info';
+  }
+  log.level = process.env.LOG_LEVEL;
 }
