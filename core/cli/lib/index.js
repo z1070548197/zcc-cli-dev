@@ -13,25 +13,59 @@ const constant = require('./const')//全局变量
 const colors = require('colors/safe'); //打印颜色
 const userHome = require('user-home'); //获取用户主目录
 const pathExists = require('path-exists').sync; //判断主目录
+const commander = require('commander');
+const init = require('@zcc-cli-dev/init')
+
 
 let args, config;
+const program = new commander.Command();
 async function core() {
   try {
     checkPkgVersion();
     checkNodeVersion();
     checkRoot();
     checkUserHome();
-    checkInputArgs();
+    // checkInputArgs();
     checkEnv();
     await checkGlobalUpdate();
+    registerCommand();
   } catch (e) {
     log.error(e.message);
   }
 
 }
+/** command */
+function registerCommand() {
+  program
+    .name(Object.keys(pkg.bin)[0])
+    .usage('<command> [options]')
+    .version(pkg.version)
+    .option('-d,--debug', '是否开启调试模式', false)
 
-
-/** 1.node版本判断 */
+  program
+  .command('init [projectName]')
+  .option('-f , --force','是否强制初始化项目')
+  .action(init)
+  program.on('option:debug', () => {
+    if (program.opts().debug) {
+      process.env.LOG_LEVEL = 'verbose';
+    } else {
+      process.env.LOG_LEVEL = 'info';
+    }
+    log.level = process.env.LOG_LEVEL;
+  })
+  program.on('command:*', (obj) => {
+    console.log(colors.red('未知的命令：', obj[0]))
+    const availableCommands = program.commands.map(cmd => cmd.name()).join(',')
+    console.log(colors.green('可用命令：', availableCommands))
+  })
+  //没有命令跳出help
+  // if(program.args&&program.args.length <1){
+  //   program.outputHelp();
+  // }
+  program.parse(process.argv);
+}
+/** node版本判断 */
 function checkNodeVersion() {
   //获取当前node版本号
   const currentVersion = process.version;
@@ -43,17 +77,17 @@ function checkNodeVersion() {
   }
 }
 
-/** 2.检查版本 */
+/** 2检查版本 */
 function checkPkgVersion() {
   log.notice(pkg.version)
 }
-/** 3.切换node权限到普通用户权限 */
+/** 切换node权限到普通用户权限 */
 function checkRoot() {
   const rootCheck = require('root-check');
   rootCheck();//切换node权限到普通用户权限
   //process.getuid() 为0 ->超级管理员操作
 }
-/** 4.判断用户主目录是否一直 */
+/** 判断用户主目录是否一致 */
 function checkUserHome() {
   if (!userHome || !pathExists(userHome)) {
     throw new Error(colors.red('当前用户主目录不存在！'))
