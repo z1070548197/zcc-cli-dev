@@ -29,7 +29,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@zcc-cli-dev/get-npm-info": "file:../../utils/get-npm-info",
+    "@zcc-cli-dev/get-npm-info": "^1.0.10",
     "@zcc-cli-dev/init": "file:../../commands/init",
     "@zcc-cli-dev/log": "^1.0.9",
     "@zcc-cli-dev/utils": "^1.0.6",
@@ -44,5 +44,5 @@
     "semver": "^7.5.4",
     "user-home": "^3.0.0"
   },
-  "gitHead": "878a2265bac095ca1e32c3c12b6176fb9eda4fb7"
+  "gitHead": "f5b37e9f974b911cd9ed42257d8ccd7dd4d0d82c"
 }

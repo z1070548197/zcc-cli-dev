@@ -1,8 +1,12 @@
-53 error Error: Command failed with exit code 128: git tag v1.0.3 -m v1.0.3
-53 error 致命错误：标签 'v1.0.3' 已存在
-53 error     at makeError (/Users/zc/Desktop/项目/测试/脚手架/node_modules/execa/lib/error.js:59:11)
-53 error     at handlePromise (/Users/zc/Desktop/项目/测试/脚手架/node_modules/execa/index.js:114:26)
-53 error     at processTicksAndRejections (node:internal/process/task_queues:96:5)
-53 error     at async VersionCommand.gitCommitAndTagVersion (/Users/zc/Desktop/项目/测试/脚手架/node_modules/lerna/dist/index.js:8370:9)
-53 error     at async VersionCommand.commitAndTagUpdates (/Users/zc/Desktop/项目/测试/脚手架/node_modules/lerna/dist/index.js:8340:18)
-53 error     at async Promise.all (index 0)
+17 error Error: Command failed with exit code 1: git remote update
+17 error kex_exchange_identification: Connection closed by remote host
+17 error Connection closed by 20.205.243.166 port 22
+17 error 致命错误：无法读取远程仓库。
+17 error
+17 error 请确认您有正确的访问权限并且仓库存在。
+17 error     at makeError (/Users/zc/Desktop/项目/测试/脚手架/node_modules/execa/lib/error.js:59:11)
+17 error     at Function.module.exports.sync (/Users/zc/Desktop/项目/测试/脚手架/node_modules/execa/index.js:186:17)
+17 error     at Object.execSync (/Users/zc/Desktop/项目/测试/脚手架/node_modules/@lerna/child-process/index.js:39:16)
+17 error     at updateRemote (/Users/zc/Desktop/项目/测试/脚手架/node_modules/lerna/dist/index.js:7613:18)
+17 error     at isBehindUpstream (/Users/zc/Desktop/项目/测试/脚手架/node_modules/lerna/dist/index.js:7603:3)
+17 error     at VersionCommand.initialize (/Users/zc/Desktop/项目/测试/脚手架/node_modules/lerna/dist/index.js:7913:57)
