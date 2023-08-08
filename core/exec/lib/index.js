@@ -30,7 +30,7 @@ async function exec() {
     pkg = new Package(options);
     //pkg存在情况
     if (await pkg.exists()) {
-      console.log('123')
+      console.log('g更新')
     } else {
       // 更新package
       await pkg.install()

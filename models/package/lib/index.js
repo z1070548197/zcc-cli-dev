@@ -6,6 +6,7 @@ const path = require('path');
 const pathExists = require('path-exists').sync;
 const formatPath = require('@zcc-cli-dev/format-path');
 const npminstall = require('npminstall');
+const fse = require('fs-extra');
 const { getDefaultRegistry, getNpmLatestVersion } = require('@zcc-cli-dev/get-npm-info')
 class Package {
   constructor(options) {
@@ -14,26 +15,36 @@ class Package {
     }
     //package的路径
     this.targetPath = options.targetPath;
-    //package的存储路径
+    //package的缓存路径
     this.storeDir = options.storeDir;
     //packagename
     this.packageName = options.packageName;
     //packageVersion
     this.packageVersion = options.packageVersion;
+    //package缓存目录前缀
+    this.cacheFilePathPrefix = this.packageName;
+  }
+  //设置包版本
+  async prepare() {
+    //没有读取到文件的情况下 自动创建好路径
+    if (this.storeDir && !pathExists(this.storeDir)) {
+      fse.mkdirSync(this.targetPath);
+      fse.mkdirSync(this.storeDir);
+    }
+    if (this.packageVersion === 'latest') {
+      this.packageVersion = await getNpmLatestVersion(this.packageName);
+    }
   }
 
-
-  async prepare() {
-    if (this.packageVersion === 'latest') {
-          this.packageVersion= await getNpmLatestVersion(this.packageName);
-    }
-    console.log(this.packageVersion)
+  get cacheFilePath() {
+    return path.resolve(this.storeDir, `${this.cacheFilePathPrefix}`)
   }
 
   //判断当前Package是否存在
   async exists() {
     if (this.storeDir) {
       await this.prepare();
+      return pathExists(this.cacheFilePath);
     } else {
       return pathExists(this.targetPath);
     }
@@ -50,8 +61,8 @@ class Package {
     })
   }
   //更新package
-  update() {
-
+  async update() {
+    await this.prepare();
   }
   //获取入口文件的绝对路径
   getRootFile() {
