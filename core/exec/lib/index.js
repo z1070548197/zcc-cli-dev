@@ -20,7 +20,7 @@ async function exec() {
   const cmdName = cmdObj.name(); //获取命令名称
   const packageName = SETTINGS[cmdName]; //获取脚手架名
   const packageVersion = 'latest';
-
+  let rootFile='';
   //如果没有，自动生成缓存路径
   if (!targetPath) {
     targetPath = path.resolve(homePath, CACHE_DIR); //生成缓存路径
@@ -30,17 +30,19 @@ async function exec() {
     pkg = new Package(options);
     //pkg存在情况
     if (await pkg.exists()) {
-      console.log('g更新')
+      await pkg.update()
     } else {
-      // 更新package
+      // 安装package
       await pkg.install()
     }
+    rootFile = pkg.cacheFilePath;
   } else {
+    //命令传入targetPath路径
     const options = { targetPath, homePath, packageName, packageVersion, storeDir };
     logs(targetPath, homePath, storeDir)
     pkg = new Package(options);
+    rootFile = pkg.getRootFile();
   }
-  const rootFile = pkg.getRootFile();
   if (rootFile) {
     require(rootFile).apply(null, arguments);
   }

@@ -7,6 +7,8 @@ const pathExists = require('path-exists').sync;
 const formatPath = require('@zcc-cli-dev/format-path');
 const npminstall = require('npminstall');
 const fse = require('fs-extra');
+const log = require('@zcc-cli-dev/log');
+const semver = require('semver');//用于版本号比对
 const { getDefaultRegistry, getNpmLatestVersion } = require('@zcc-cli-dev/get-npm-info')
 class Package {
   constructor(options) {
@@ -63,6 +65,17 @@ class Package {
   //更新package
   async update() {
     await this.prepare();
+    const latextPackageVersion = await getNpmLatestVersion(this.packageName);
+    const pkgFile = require(path.resolve(this.cacheFilePath, 'package.json'))
+    //版本比较更新
+    if (pkgFile && semver.lt(pkgFile.version, latextPackageVersion)) {
+      log.verbose('命令包更新','发现新版本')
+      await this.install()
+      log.verbose('命令包更新','更新完成')
+    } else {
+      return null
+    }
+
   }
   //获取入口文件的绝对路径
   getRootFile() {
