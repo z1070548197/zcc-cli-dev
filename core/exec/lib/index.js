@@ -35,7 +35,7 @@ async function exec() {
       // 安装package
       await pkg.install()
     }
-    rootFile = pkg.cacheFilePath;
+    rootFile = pkg.getRootFile();
   } else {
     //命令传入targetPath路径
     const options = { targetPath, homePath, packageName, packageVersion, storeDir };

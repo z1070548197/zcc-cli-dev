@@ -29,9 +29,8 @@ class Package {
   //设置包版本
   async prepare() {
     //没有读取到文件的情况下 自动创建好路径
-    if (this.storeDir && !pathExists(this.storeDir)) {
+    if (this.storeDir && !pathExists(this.targetPath)) {
       fse.mkdirSync(this.targetPath);
-      fse.mkdirSync(this.storeDir);
     }
     if (this.packageVersion === 'latest') {
       this.packageVersion = await getNpmLatestVersion(this.packageName);
@@ -69,9 +68,9 @@ class Package {
     const pkgFile = require(path.resolve(this.cacheFilePath, 'package.json'))
     //版本比较更新
     if (pkgFile && semver.lt(pkgFile.version, latextPackageVersion)) {
-      log.verbose('命令包更新','发现新版本')
+      log.verbose('命令包更新', '发现新版本')
       await this.install()
-      log.verbose('命令包更新','更新完成')
+      log.verbose('命令包更新', '更新完成')
     } else {
       return null
     }
@@ -79,19 +78,30 @@ class Package {
   }
   //获取入口文件的绝对路径
   getRootFile() {
-    //1.获取package.json目录
-    const dir = pkgDir(this.targetPath);
-    if (dir) {
-      //2.读取package.json
-      const pkgFile = require(path.resolve(dir, 'package.json'))
-      //3.寻找main/lib
-      if (pkgFile && pkgFile.main) {
-        //4.路径的兼容(macOS/windows)
-        return formatPath(path.resolve(dir, pkgFile.main));
-      }
-    } else {
-      return null
+    function _getRootFile(targetPath){
+            //1.获取package.json目录
+            const dir = pkgDir(targetPath);
+            if (dir) {
+              //2.读取package.json
+              const pkgFile = require(path.resolve(dir, 'package.json'))
+              //3.寻找main/lib
+              if (pkgFile && pkgFile.main) {
+                //4.路径的兼容(macOS/windows)
+                return formatPath(path.resolve(dir, pkgFile.main));
+              }else{
+                log.warn(`路径错误,请确认${targetPath}存在package.json`)
+                return null
+              }
+            } else {
+              return null
+            }
     }
+    if (this.storeDir) {
+      return _getRootFile(this.cacheFilePath)
+    } else {
+      return _getRootFile(this.targetPath)
+    }
+
 
   }
 }

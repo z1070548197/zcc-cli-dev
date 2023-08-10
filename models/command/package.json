@@ -1,6 +1,6 @@
 {
-  "name": "@zcc-cli-dev/init",
-  "version": "1.2.1",
+  "name": "@zcc-cli-dev/command",
+  "version": "1.1.0",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -16,15 +16,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@zcc-cli-dev/command" :"file:../../models/command"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/z1070548197/zcc-cli-dev.git"
   },
   "scripts": {
-    "test": "node ./__tests__/@zcc-cli-dev/init.test.js"
+    "test": "node ./__tests__/@zcc-cli-dev/Command.test.js"
   },
   "bugs": {
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
