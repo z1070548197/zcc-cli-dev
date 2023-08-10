@@ -8,7 +8,7 @@ function init (projectName,cmdObj,a){
 const Command = require('@zcc-cli-dev/command');
 
 class InitCommand extends Command {
-
+  
 }
 
 module.exports =init;
