@@ -5,6 +5,7 @@ module.exports = exec;
 const Package = require("@zcc-cli-dev/package");
 const log = require('@zcc-cli-dev/log');
 const path = require('path');
+const cp =require('child_process');
 const SETTINGS = {
   init: '@zcc-cli-dev/init'
 }
@@ -44,11 +45,56 @@ async function exec() {
     rootFile = pkg.getRootFile();
   }
   if (rootFile) {
-    require(rootFile).apply(null, arguments);
+    try{
+      //同步方法执行
+      //require(rootFile).call(null,Array.from(arguments));
+      //使用node多进程执行
+      const args = Array.from(arguments);//类数组转数组
+      const cmd =args[args.length-1];//取参数最后一个
+      const o = Object.create(null);//创建没有原型链的对象
+      //剔除没用的属性
+      Object.keys(cmd).forEach(key=>{
+        if(cmd.hasOwnProperty(key) && !key.startsWith('_')&&key!=='parent'){
+            o[key]=cmd[key];
+        }
+      })
+      const options=cmd.opts()
+      Object.keys(options).forEach(key=>{
+        o[key]=  options[key]
+      })
+      args[args.length-1]=o;
+      const code=`require('${rootFile}').call(null,${JSON.stringify(args)})`;
+      //使用node多进程调用命令
+      const child =spawn('node',['-e',code],{
+        cwd:process.cwd(),
+        stdio:'inherit', //自动监听输出，直接输出至主进程里
+      })
+      //命令执行错误事件 
+      child.on('error',e=>{
+        log.error(e.message);
+        process.exit(1);
+      })
+      //命令退出事件
+      child.on('exit',e=>{
+        log.verbose('命令执行成功'+e)
+        process.exit(e);
+      })
+    }catch(e){
+      log.error(e.message);
+    }
+    
   }
   function logs(targetPath, homePath, storeDir) {
     log.verbose('targetPath', targetPath);//debug提示commands路径
     log.verbose('homePath', homePath);//debug提示脚手架路径
     log.verbose('storeDir', storeDir);//debug提示脚手架路径
+  }
+  //win or macos 兼容
+  function spawn(command,args,options){
+    const win32 = process.platform ==='win32';
+
+    const cmd = win32 ? cmd :command;
+    const cmdArgs = win32 ? ['/c'].concat(command,args) :args;
+    return cp.spawn(cmd,cmdArgs,options||{});
   }
 }

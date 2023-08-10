@@ -17,7 +17,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@zcc-cli-dev/command": "file:../../models/command"
+    "@zcc-cli-dev/command": "file:../../models/command",
+    "@zcc-cli-dev/log": "^2.0.0"
   },
   "repository": {
     "type": "git",

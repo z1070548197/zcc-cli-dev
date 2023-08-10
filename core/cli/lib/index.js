@@ -14,7 +14,6 @@ const colors = require('colors/safe'); //打印颜色
 const userHome = require('user-home'); //获取用户主目录
 const pathExists = require('path-exists').sync; //判断主目录
 const commander = require('commander'); //命令注册
-const init = require('@zcc-cli-dev/init') //导入命令库
 const exec =require('@zcc-cli-dev/exec')
 
 let args, config;
@@ -67,7 +66,6 @@ function registerCommand() {
 }
 async function prepare(){
   checkPkgVersion();
-  checkNodeVersion();
   checkRoot();
   checkUserHome();
   checkEnv();

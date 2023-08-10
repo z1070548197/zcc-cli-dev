@@ -25,5 +25,10 @@
   },
   "bugs": {
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "@zcc-cli-dev/log": "^2.0.0",
+    "semver": "^7.5.4"
   }
 }
