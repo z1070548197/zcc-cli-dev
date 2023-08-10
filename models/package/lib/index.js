@@ -54,7 +54,7 @@ class Package {
   install() {
     return npminstall({
       root: this.targetPath,
-      storeDir: this.storePath,
+      storeDir: this.storeDir,
       registry: getDefaultRegistry(),
       pkgs: [
         { name: this.packageName, version: this.packageVersion }

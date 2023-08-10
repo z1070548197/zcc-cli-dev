@@ -23,7 +23,7 @@ function getNpmInfo(npmName, registry) {
 }
 /**获取镜像源 */
 function getDefaultRegistry(isOriginal = false) {
-  return isOriginal ? 'https://registry.npmjs.org' : 'https://registry.npm.taobao.org'
+  return (isOriginal||process.env.LOG_LEVEL === 'verbose') ? 'https://registry.npmjs.org' : 'https://registry.npm.taobao.org'
 }
 /** 返回所有版本号 */
 async function getNpmVerSions(npmName, registry) {
