@@ -1,6 +1,6 @@
 {
   "name": "@zcc-cli-dev/init",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@zcc-cli-dev/command": "file:../../models/command",
-    "@zcc-cli-dev/log": "^2.0.2",
+    "@zcc-cli-dev/log": "^3.0.0",
     "fs-extra": "^11.1.1",
     "inquirer": "^8.0.0",
     "semver": "^7.5.4"
