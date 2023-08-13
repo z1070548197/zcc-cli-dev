@@ -3,7 +3,7 @@ const log = require("@zcc-cli-dev/log");
 const fs = require('fs');
 const fse = require('fs-extra');
 const inquirer = require('inquirer');
-
+const semver = require('semver');
 const TYPE_PROJECT = 'project';
 const TYPE_COMPONENT = 'component';
 
@@ -24,7 +24,10 @@ class InitCommand extends Command {
   async exec() {
     try {
       //1.准备阶段
-      await this.prepare();
+      const projeactInfo=await this.prepare();
+      if(projeactInfo){
+        console.log(projeactInfo)
+      }
       //2.下载模板
 
       //3.安装模板
@@ -37,7 +40,7 @@ class InitCommand extends Command {
     //1.判断当前目录是否为空
     const localPath = process.cwd(); //当前执行的目录
     if (!this.ifDirIsEmpty(localPath)) {
-      let ifContinue = false;
+      let ifContinue = true;
       if (!this.force) {
         //不为空 询问
         ifContinue = (await inquirer.prompt({
@@ -53,10 +56,13 @@ class InitCommand extends Command {
       if (ifContinue || this.force) {
         const { confirmDelete } = (await inquirer.prompt({
           type: 'confirm',
-          name: 'ifContinue',
+          name: 'confirmDelete',
           default: false,
           message: '目录下所有文件将清空?'
         }))
+        if (!confirmDelete) {
+          return
+        }
         if (confirmDelete) {
           //清空当前目录
           fse.emptyDirSync(localPath); //清空文件
@@ -67,14 +73,14 @@ class InitCommand extends Command {
 
   }
   async getProjectInfo() {
-    const projeactInfo = {};
+    let projeactInfo = {};
     //3.选择创建项目或组件
     const { type } = await inquirer.prompt({
       type: 'list',
       name: 'type',
       message: '请选择初始化类型',
       default: TYPE_PROJECT,
-      choides: [{
+      choices: [{
         name: '项目',
         value: TYPE_PROJECT
       },
@@ -84,7 +90,49 @@ class InitCommand extends Command {
       }
       ]
     })
+    const project = await inquirer.prompt([{
+      type: 'input',
+      name: 'projectName',
+      message: '请输入项目名称',
+      default: '',
+      validate(v) {
+        const done = this.async();
+        setTimeout(() => {
+          if (!/^[a-zA-Z]+([-][a-zA-Z][a-zA-Z0-9]*|[_][a-zA-Z][a-zA-Z0-9]*|[a-zA-Z0-9])*$/.test(v)) {
+            done("请输入合法名称\n首字符必须为英文字符\n尾字符必须为英文或数字\n字符仅允许'-_'");
+            return;
+          }
+          done(null, true);
+        }, 0)
+      },
+      filter(v) {
+        return v;
+      },
+    }, {
+      type: 'input',
+      name: 'projectVersion',
+      message: '请输入项目版本号',
+      default: '1.0.0',
+      validate(v) {
+        const done = this.async();
+        if(!semver.valid(v)){
+          done('请输入合法版本号')
+          return ;
+        }
+        done(null, true);
+        //验证版本是否规范
+      },
+      filter(v) {
+        if (semver.valid(v)) {
+          return semver.valid(v);
+        } else {
+          return v;
+        }
+      },
+    }])
+    projeactInfo={type,...project}
     //4.获取项目的基本信息
+    return projeactInfo
   }
   /** 检测文件目录里是否为空 */
   ifDirIsEmpty(localPath) {
