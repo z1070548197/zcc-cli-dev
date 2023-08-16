@@ -6,5 +6,5 @@
     "commands/*"
   ],
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "version": "3.0.0"
+  "version": "3.0.1"
 }
