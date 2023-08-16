@@ -1,11 +1,15 @@
 'use strict';
 const log = require("@zcc-cli-dev/log");
 const fs = require('fs');
+const path = require('path');
+const userHome = require('user-home');
 const fse = require('fs-extra');
 const inquirer = require('inquirer');
 const semver = require('semver');
 const TYPE_PROJECT = 'project';
 const TYPE_COMPONENT = 'component';
+
+const getProjectTemplate = require('./getProjectTemplate');
 
 function init(argv) {
   //console.log(projectName,cmdObj,process.env.CLI_TARGET_PATH);
@@ -13,6 +17,7 @@ function init(argv) {
 }
 
 const Command = require('@zcc-cli-dev/command');
+const Package = require("@zcc-cli-dev/package");
 
 class InitCommand extends Command {
   init() {
@@ -21,22 +26,49 @@ class InitCommand extends Command {
     log.verbose('projectName', this.projectName);
     log.verbose('force', this.force);
   }
+
   async exec() {
     try {
       //1.准备阶段
-      const projeactInfo=await this.prepare();
-      if(projeactInfo){
-        console.log(projeactInfo)
+      const projeactInfo = await this.prepare();
+      if (projeactInfo) {
+        //2.下载模板
+        this.projeactInfo = projeactInfo;
+        await this.downloadTempate();
       }
-      //2.下载模板
+
 
       //3.安装模板
     } catch (e) {
       log.error(e.message);
     }
-
   }
+
+  /**模板下载 */
+  async downloadTempate() {
+    const { projectTemplate } = this.projeactInfo;
+    const templateInfo = this.template.find(item => item.npmName === projectTemplate);
+    const targetPath = path.resolve(userHome, '.zcc-cli-dev', 'template');
+    const storeDir = path.resolve(userHome, '.zcc-cli-dev', 'template', 'node_modules');
+    const { npmName, version } = templateInfo;
+    const templateNpm = new Package({
+      targetPath, storeDir, packageName: npmName, packageVersion: version
+    })
+    if (! await templateNpm.exists()) {
+      await templateNpm.install();
+    }else{
+      await templateNpm.update();
+    }
+  }
+
+  /**前置检查 */
   async prepare() {
+    //0.判断项目模板是否存在
+    const template = await getProjectTemplate();
+    if (!template || template.length === 0) {
+      throw new Error('无项目模板,请联系检查数据库数据')
+    }
+    this.template = template;
     //1.判断当前目录是否为空
     const localPath = process.cwd(); //当前执行的目录
     if (!this.ifDirIsEmpty(localPath)) {
@@ -72,6 +104,7 @@ class InitCommand extends Command {
     return this.getProjectInfo();
 
   }
+  /**命令数据采集 */
   async getProjectInfo() {
     let projeactInfo = {};
     //3.选择创建项目或组件
@@ -115,9 +148,9 @@ class InitCommand extends Command {
       default: '1.0.0',
       validate(v) {
         const done = this.async();
-        if(!semver.valid(v)){
+        if (!semver.valid(v)) {
           done('请输入合法版本号')
-          return ;
+          return;
         }
         done(null, true);
         //验证版本是否规范
@@ -129,11 +162,18 @@ class InitCommand extends Command {
           return v;
         }
       },
-    }])
-    projeactInfo={type,...project}
+    }, {
+      type: 'list',
+      name: 'projectTemplate',
+      message: '请选择模板',
+      choices: this.createTemplateChoice()
+    }
+    ])
+    projeactInfo = { type, ...project }
     //4.获取项目的基本信息
     return projeactInfo
   }
+
   /** 检测文件目录里是否为空 */
   ifDirIsEmpty(localPath) {
     //console.log(path.resolve('.')) //也可以拿到执行目录
@@ -143,6 +183,15 @@ class InitCommand extends Command {
       return !file.startsWith('.') && ['node_modules'].indexOf(file < 0)
     });
     return !fileList || fileList.length <= 0
+  }
+  /**模板数据格式化 */
+  createTemplateChoice() {
+    return this.template.map(item => (
+      {
+        value: item.npmName,
+        name: item.name
+      }
+    ))
   }
 }
 

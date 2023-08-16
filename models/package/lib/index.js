@@ -30,7 +30,7 @@ class Package {
   async prepare() {
     //没有读取到文件的情况下 自动创建好路径
     if (this.storeDir && !pathExists(this.targetPath)) {
-      fse.mkdirSync(this.targetPath);
+     fse.mkdirSync(this.targetPath);
     }
     if (this.packageVersion === 'latest') {
       this.packageVersion = await getNpmLatestVersion(this.packageName);
@@ -43,12 +43,16 @@ class Package {
 
   //判断当前Package是否存在
   async exists() {
-    if (this.storeDir) {
-      await this.prepare();
-      return pathExists(this.cacheFilePath);
-    } else {
-      return pathExists(this.targetPath);
+    try{
+      if (this.storeDir) {
+        return pathExists(this.cacheFilePath);
+      } else {
+        return pathExists(this.targetPath);
+      }
+    }catch(e){
+      log.verbose(e)
     }
+
   }
   //安装Package
   install() {

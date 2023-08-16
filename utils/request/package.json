@@ -1,6 +1,6 @@
 {
-  "name": "@zcc-cli-dev/init",
-  "version": "3.0.0",
+  "name": "@zcc-cli-dev/request",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -16,24 +16,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {
-    "@zcc-cli-dev/command": "file:../../models/command",
-    "@zcc-cli-dev/log": "^3.0.0",
-    "@zcc-cli-dev/package": "file:../../models/package",
-    "@zcc-cli-dev/request": "file:../../utils/request",
-    "fs-extra": "^11.1.1",
-    "inquirer": "^8.0.0",
-    "semver": "^7.5.4",
-    "user-home": "^3.0.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/z1070548197/zcc-cli-dev.git"
   },
   "scripts": {
-    "test": "node ./__tests__/@zcc-cli-dev/init.test.js"
+    "test": "node ./__tests__/@zcc-cli-dev/request.test.js"
   },
   "bugs": {
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
   }
 }
