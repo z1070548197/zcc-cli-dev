@@ -1,0 +1,27 @@
+{
+  "name": "zcc-cli-dev",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "zcc": "node core/cli/bin/index.js"
+  },
+  "bin": {
+    "zcc-cli-dev": "core/cli/bin/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^7.1.4",
+    "nx-cloud": "^16.2.0"
+  },
+  "workspaces": [
+    "utils/*",
+    "core/*",
+    "commands/*",
+    "models/*"
+  ],
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}

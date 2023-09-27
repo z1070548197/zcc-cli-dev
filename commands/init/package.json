@@ -1,0 +1,42 @@
+{
+  "name": "@zcc-cli-dev/init",
+  "version": "3.0.1",
+  "description": "> TODO: description",
+  "author": "zcc <1070548197@qq.com>",
+  "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@zcc-cli-dev/command": "file:../../models/command",
+    "@zcc-cli-dev/log": "^3.0.1",
+    "@zcc-cli-dev/package": "file:../../models/package",
+    "@zcc-cli-dev/request": "file:../../utils/request",
+    "@zcc-cli-dev/utils": "file:../../utils/utils",
+    "ejs": "^3.1.9",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.3",
+    "inquirer": "^8.0.0",
+    "kebab-case": "^1.0.2",
+    "semver": "^7.5.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z1070548197/zcc-cli-dev.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/@zcc-cli-dev/init.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "@zcc-cli-dev/core",
+  "version": "3.0.1",
+  "description": "> TODO: description",
+  "author": "zcc <1070548197@qq.com>",
+  "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
+  "license": "ISC",
+  "main": "lib/core.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "bin": {
+    "zcc-cli-dev": "bin/index.js"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z1070548197/zcc-cli-dev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@zcc-cli-dev/exec": "file:../exec",
+    "@zcc-cli-dev/get-npm-info": "^3.0.1",
+    "@zcc-cli-dev/init": "file:../../commands/init",
+    "@zcc-cli-dev/log": "^3.0.1",
+    "@zcc-cli-dev/utils": "^3.0.1",
+    "colors": "^1.4.0",
+    "commander": "^11.0.0",
+    "dotenv": "^16.3.1",
+    "import-local": "^3.1.0",
+    "npmlog": "^7.0.1",
+    "path-exists": "^3.0.0",
+    "root-check": "^1.0.0",
+    "semver": "^7.5.4"
+  },
+  "gitHead": "f5b37e9f974b911cd9ed42257d8ccd7dd4d0d82c"
+}

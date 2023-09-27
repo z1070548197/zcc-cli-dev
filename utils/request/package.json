@@ -1,0 +1,32 @@
+{
+  "name": "@zcc-cli-dev/request",
+  "version": "3.0.1",
+  "description": "> TODO: description",
+  "author": "zcc <1070548197@qq.com>",
+  "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/z1070548197/zcc-cli-dev.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/@zcc-cli-dev/request.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
+  },
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}

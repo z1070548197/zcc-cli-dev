@@ -1,0 +1,10 @@
+{
+  "packages": [
+    "core/*",
+    "models/*",
+    "utils/*",
+    "commands/*"
+  ],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "3.0.1"
+}
