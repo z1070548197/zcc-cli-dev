@@ -4,8 +4,13 @@ module.exports = exec;
 
 const Package = require("@zcc-cli-dev/package");
 const log = require('@zcc-cli-dev/log');
+<<<<<<< HEAD
 const path = require('path');
 const cp =require('child_process');
+=======
+const {execAsync} = require('@zcc-cli-dev/utils');
+const path = require('path');
+>>>>>>> 699c9c8 (cs)
 const SETTINGS = {
   init: '@zcc-cli-dev/init'
 }
@@ -65,6 +70,7 @@ async function exec() {
       args[args.length-1]=o;
       const code=`require('${rootFile}').call(null,${JSON.stringify(args)})`;
       //使用node多进程调用命令
+<<<<<<< HEAD
       const child =spawn('node',['-e',code],{
         cwd:process.cwd(),
         stdio:'inherit', //自动监听输出，直接输出至主进程里
@@ -79,6 +85,12 @@ async function exec() {
         log.verbose('命令执行成功'+e)
         process.exit(e);
       })
+=======
+      const child =execAsync('node',['-e',code],{
+        cwd:process.cwd(),
+        stdio:'inherit', //自动监听输出，直接输出至主进程里
+      })
+>>>>>>> 699c9c8 (cs)
     }catch(e){
       log.error(e.message);
     }
@@ -89,6 +101,7 @@ async function exec() {
     log.verbose('homePath', homePath);//debug提示脚手架路径
     log.verbose('storeDir', storeDir);//debug提示脚手架路径
   }
+<<<<<<< HEAD
   //win or macos 兼容
   function spawn(command,args,options){
     const win32 = process.platform ==='win32';
@@ -97,4 +110,8 @@ async function exec() {
     const cmdArgs = win32 ? ['/c'].concat(command,args) :args;
     return cp.spawn(cmd,cmdArgs,options||{});
   }
+=======
+ 
+
+>>>>>>> 699c9c8 (cs)
 }

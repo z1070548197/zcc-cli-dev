@@ -55,26 +55,45 @@ class Package {
 
   }
   //安装Package
+<<<<<<< HEAD
   install() {
+=======
+  install(version) {
+>>>>>>> 699c9c8 (cs)
     return npminstall({
       root: this.targetPath,
       storeDir: this.storeDir,
       registry: getDefaultRegistry(),
       pkgs: [
+<<<<<<< HEAD
         { name: this.packageName, version: this.packageVersion }
+=======
+        { name: this.packageName, version: version|| this.packageVersion }
+>>>>>>> 699c9c8 (cs)
       ]
     })
   }
   //更新package
+<<<<<<< HEAD
   async update() {
+=======
+  async update(Version) {
+>>>>>>> 699c9c8 (cs)
     await this.prepare();
     const latextPackageVersion = await getNpmLatestVersion(this.packageName);
     const pkgFile = require(path.resolve(this.cacheFilePath, 'package.json'))
     //版本比较更新
+<<<<<<< HEAD
     if (pkgFile && semver.lt(pkgFile.version, latextPackageVersion)) {
       log.verbose('命令包更新', '发现新版本')
       await this.install()
       log.verbose('命令包更新', '更新完成')
+=======
+    if (pkgFile && semver.lt(pkgFile.version,  Version|| latextPackageVersion)) {
+      log.verbose(this.packageName, `发现新版本${Version||latextPackageVersion}`,`当前版本${pkgFile.version}`)
+      await this.install(latextPackageVersion)
+      log.verbose( '更新完成')
+>>>>>>> 699c9c8 (cs)
     } else {
       return null
     }
