@@ -1,6 +1,6 @@
 {
   "name": "@zcc-cli-dev/exec",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -24,9 +24,9 @@
     "test": "node ./__tests__/@zcc-cli-dev/exec.test.js"
   },
   "dependencies": {
+    "@zcc-cli-dev/exec": "file:../../utils/utils",
     "@zcc-cli-dev/log": "file:../../utils/log",
-    "@zcc-cli-dev/package": "file:../../models/package",
-    "@zcc-cli-dev/exec": "file:../../utils/utils"
+    "@zcc-cli-dev/package": "file:../../models/package"
   },
   "bugs": {
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
