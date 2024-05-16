@@ -18,16 +18,6 @@
     "models/*"
   ],
   "dependencies": {
-    "yargs": "^17.7.2",
-    "@zcc-cli-dev/utils": "*",
-    "@zcc-cli-dev/core": "*",
-    "@zcc-cli-dev/init": "*",
-    "@zcc-cli-dev/command": "*",
-    "@zcc-cli-dev/exec":"*",
-    "@zcc-cli-dev/package":"*",
-    "@zcc-cli-dev/request":"*",
-    "@zcc-cli-dev/log":"*",
-    "@zcc-cli-dev/get-npm-info":"*",
-    "@zcc-cli-dev/format-path":"*"
+    "yargs": "^17.7.2"
   }
 }
