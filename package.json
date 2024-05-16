@@ -20,7 +20,6 @@
     "models/*"
   ],
   "dependencies": {
-
     "@zcc-cli-dev/utils": "*",
     "@zcc-cli-dev/core": "*",
     "@zcc-cli-dev/init": "*",
