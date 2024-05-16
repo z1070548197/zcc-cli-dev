@@ -1,6 +1,6 @@
 {
   "name": "@zcc-cli-dev/command",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "> TODO: description",
   "author": "zcc <1070548197@qq.com>",
   "homepage": "https://github.com/z1070548197/zcc-cli-dev#readme",
@@ -27,7 +27,7 @@
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
   },
   "dependencies": {
-    "@zcc-cli-dev/log": "^3.0.4",
+    "@zcc-cli-dev/log": "^3.0.5",
     "colors": "^1.4.0",
     "semver": "^7.5.4"
   }
