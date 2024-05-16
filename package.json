@@ -1,19 +1,17 @@
 {
   "name": "zcc-cli-dev",
-  "version": "1.1.0",
+  "version": "1.1.9",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "zcc": "node core/cli/bin/index.js"
-  },
   "bin": {
     "zcc-cli-dev": "core/cli/bin/index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "lerna": "^7.1.4",
-    "nx-cloud": "^16.2.0"
+    "yargs": "^17.7.2",
+    "nx-cloud": "^16.2.0",
+    "lerna": "^7.1.4"
   },
   "workspaces": [
     "utils/*",
@@ -22,6 +20,16 @@
     "models/*"
   ],
   "dependencies": {
-    "yargs": "^17.7.2"
+
+    "@zcc-cli-dev/utils": "*",
+    "@zcc-cli-dev/core": "*",
+    "@zcc-cli-dev/init": "*",
+    "@zcc-cli-dev/command": "*",
+    "@zcc-cli-dev/exec":"*",
+    "@zcc-cli-dev/package":"*",
+    "@zcc-cli-dev/request":"*",
+    "@zcc-cli-dev/log":"*",
+    "@zcc-cli-dev/get-npm-info":"*",
+    "@zcc-cli-dev/format-path":"*"
   }
 }
