@@ -1,13 +1,13 @@
 {
   "name": "zcc-cli-dev",
-  "version": "1.1.9",
+  "version": "1.2.2",
   "description": "",
   "main": "index.js",
   "bin": {
     "zcc-cli-dev": "core/cli/bin/index.js"
   },
   "scripts": {
-    "postinstall": "node ./bin/post-install"
+    "postinstall": "node ./bin/post-install.sh"
   },
   "author": "",
   "license": "ISC",
