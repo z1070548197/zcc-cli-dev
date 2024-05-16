@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "yargs": "^17.7.2",
     "nx-cloud": "^16.2.0",
     "lerna": "^7.1.4"
   },
@@ -20,6 +19,7 @@
     "models/*"
   ],
   "dependencies": {
+    "yargs": "^17.7.2",
     "@zcc-cli-dev/utils": "*",
     "@zcc-cli-dev/core": "*",
     "@zcc-cli-dev/init": "*",
