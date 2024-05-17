@@ -6,9 +6,6 @@
   "bin": {
     "zcc-cli-dev": "core/cli/bin/index.js"
   },
-  "scripts": {
-    "postinstall": "node ./bin/post-install.sh"
-  },
   "author": "",
   "license": "ISC",
   "devDependencies": {

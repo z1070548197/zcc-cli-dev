@@ -47,7 +47,7 @@ class InitCommand extends Command {
       }
 
     } catch (e) {
-      log.error(e.message);
+      log.error(e.message,'服务器错误');
     }
   }
   /**模板安装 */
