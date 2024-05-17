@@ -24,7 +24,7 @@
     "test": "node ./__tests__/@zcc-cli-dev/exec.test.js"
   },
   "dependencies": {
-    "@zcc-cli-dev/exec": "file:../../utils/utils",
+    "@zcc-cli-dev/utils": "file:../../utils/utils",
     "@zcc-cli-dev/log": "file:../../utils/log",
     "@zcc-cli-dev/package": "file:../../models/package"
   },
