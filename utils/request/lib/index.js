@@ -2,7 +2,7 @@
 
 const axios =require('axios');
 
-const BASE_URL = process.env.BASE_URL || 'http://home.zanzcc.com:7001';
+const BASE_URL = process.env.BASE_URL || 'https://home.zanzcc.com:7001';
 const request= axios.create({
   baseURL : BASE_URL,
   timeout: 5000,
