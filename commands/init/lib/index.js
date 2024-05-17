@@ -47,7 +47,8 @@ class InitCommand extends Command {
       }
 
     } catch (e) {
-      log.error(e.message,'服务器错误');
+      log.error('错误');
+      log.error(e.message);
     }
   }
   /**模板安装 */
@@ -151,7 +152,7 @@ class InitCommand extends Command {
   }
   //自定义模板安装
   async installCustomTemplate() {
-
+    log.error('自定义模板，未开发完成内容');
   }
   /**模板下载 */
   async downloadTempate() {
