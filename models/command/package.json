@@ -27,7 +27,7 @@
     "url": "https://github.com/z1070548197/zcc-cli-dev/issues"
   },
   "dependencies": {
-    "@zcc-cli-dev/log": "^3.0.9",
+    "@zcc-cli-dev/log": "file:../../utils/log",
     "colors": "^1.4.0",
     "semver": "^7.5.4"
   }

@@ -29,11 +29,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@zcc-cli-dev/exec": "file:../exec",
-    "@zcc-cli-dev/get-npm-info": "^3.0.9",
-    "@zcc-cli-dev/init": "file:../../commands/init",
-    "@zcc-cli-dev/log": "^3.0.9",
-    "@zcc-cli-dev/utils": "^3.0.9",
     "colors": "^1.4.0",
     "commander": "^11.0.0",
     "dotenv": "^16.3.1",
