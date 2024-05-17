@@ -29,7 +29,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@zcc-cli-dev/exec": "file:/../utils/exec",
+    "@zcc-cli-dev/exec": "file:../utils/exec",
     "@zcc-cli-dev/log": "file:../../utils/log",
     "colors": "^1.4.0",
     "commander": "^11.0.0",
